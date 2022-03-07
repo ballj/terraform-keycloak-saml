@@ -79,7 +79,7 @@ resource "keycloak_role" "main" {
   attributes      = lookup(each.value, "attributes", {})
 }
 
-resource "keycloak_saml_user_property_protocol_mapper" "givenname" {
+resource "keycloak_saml_user_property_protocol_mapper" "main" {
   for_each  = { for user_property in var.user_property_protocol_mappers : user_property.name => user_property }
   realm_id  = data.keycloak_realm.main.id
   client_id = keycloak_saml_client.main.id
