@@ -52,6 +52,7 @@ module "saml" {
 | `full_scope_allowed`                  | No       | `false`      | Allow to include all roles mappings in the token                 |
 | `roles`                               | No       | `[]`         | Roles to add to client                                           |
 | `user_property_protocol_mappers`      | No       | `[]`         | User-property protocol mappers to add to client                  |
+| `role_list_mapper`                    | No       | `[]`         | Role-List mapper to add to the client                            |
 | `keys_filter_algorithm`               | No       | `[]`         | Keys will be filtered by algorithm                               |
 | `keys_filter_status`                  | No       | `["ACTIVE"]` | Keys will be filtered by status                                  |
 
@@ -88,5 +89,22 @@ module "saml" {
       saml_attribute_name        = "Email"
       saml_attribute_name_format = "Unspecified"
     }
+}
+```
+
+### Role-List mapper
+
+Role-list role mappers can be configured by configuring the variable `role_list_mapper`.
+The following attributes can be used:
+
+```
+module "saml" {
+  role_list_mapper = {
+    name = "role-list"
+    saml_attribute_name = "Roles"
+    friendly_name = "Roles"
+    saml_attribute_name_format = "Basic"
+    single_role_attribute = false
+  }
 }
 ```

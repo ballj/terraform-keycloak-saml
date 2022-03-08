@@ -100,3 +100,18 @@ resource "keycloak_group_roles" "main" {
     keycloak_role.main[each.key].id
   ]
 }
+
+resource "keycloak_generic_client_protocol_mapper" "role_list" {
+  count = var.role_list_mapper != null ? 1 : 0
+  realm_id        = data.keycloak_realm.main.id
+  client_id       = keycloak_saml_client.main.id
+  name            = var.role_list_mapper.name
+  protocol        = "saml"
+  protocol_mapper = "saml-role-list-mapper"
+  config = {
+    "attribute.nameformat" = lookup(var.role_list_mapper, "saml_attribute_name_format", "Unspecified")
+    "friendly.name"        = lookup(var.role_list_mapper, "friendly_name", "")
+    "attribute.name"       = var.role_list_mapper.saml_attribute_name
+    "single"               = lookup(var.role_list_mapper, "single_role_attribute", true)
+  }
+}

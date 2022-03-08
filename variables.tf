@@ -228,3 +228,9 @@ variable "keys_filter_status" {
   description = "Keys will be filtered by status"
   default     = ["ACTIVE"]
 }
+
+variable "role_list_mapper" {
+  type        = map(any)
+  description = "Role-List mapper to add to the client"
+  default     = null
+}
