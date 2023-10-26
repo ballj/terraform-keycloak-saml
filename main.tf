@@ -99,6 +99,7 @@ resource "keycloak_group_roles" "main" {
   role_ids = [
     keycloak_role.main[each.key].id
   ]
+  exhaustive = false
 }
 
 resource "keycloak_generic_client_protocol_mapper" "role_list" {
